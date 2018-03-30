@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import {
   Platform,
   StatusBar,
@@ -11,6 +12,7 @@ import {
   View,
   FlatList,
   InteractionManager,
+  SafeAreaView,
 } from 'react-native';
 
 import { ratio, colors } from '@utils/Styles';
@@ -29,13 +31,12 @@ const styles: any = StyleSheet.create({
     alignItems: 'center',
   },
   titleTxt: {
-    marginTop: 140 * ratio,
     color: 'white',
     fontSize: 28 * ratio,
   },
   btnBottomWrapper: {
     position: 'absolute',
-    bottom: 16 * ratio,
+    bottom: 20 * ratio ,
   },
   btnLogin: {
     backgroundColor: 'transparent',
@@ -45,7 +46,6 @@ const styles: any = StyleSheet.create({
     width: 320 * ratio,
     height: 52 * ratio,
     borderColor: 'white',
-
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -93,24 +93,26 @@ class Page extends Component<any, IState> {
 
   public render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.titleTxt}>DOOBOO NATIVE</Text>
-        <View style={styles.viewUser}>
-          <Text style={styles.txtUser}>{this.props.store.user.displayName}</Text>
-          <Text style={styles.txtUser}>{this.props.store.user.age}</Text>
-          <Text style={styles.txtUser}>{this.props.store.user.job}</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+          <Text style={styles.titleTxt}>Its {(moment()).format('LT')} right now.</Text>
+          <View style={styles.viewUser}>
+            <Text style={styles.txtUser}>{"Hi "+ this.props.store.user.displayName}</Text>
+            <Text style={styles.txtUser}>How are you feeling right now?</Text>
+          </View>
+          <View style={styles.btnBottomWrapper}>
+            <Button
+              isLoading={this.state.isLoggingIn}
+              onPress={this.onLogin}
+              style={styles.btnLogin}
+              textStyle={styles.txtLogin}
+              imgLeftSrc={IC_MASK}
+              imgLeftStyle={styles.imgBtn}
+            >{getString('LOGIN')}</Button>
+          </View>
         </View>
-        <View style={styles.btnBottomWrapper}>
-          <Button
-            isLoading={this.state.isLoggingIn}
-            onPress={this.onLogin}
-            style={styles.btnLogin}
-            textStyle={styles.txtLogin}
-            imgLeftSrc={IC_MASK}
-            imgLeftStyle={styles.imgBtn}
-          >{getString('LOGIN')}</Button>
-        </View>
-      </View>
+      </SafeAreaView>
+      
     );
   }
 

@@ -1,3 +1,4 @@
+Forked from https://github.com/dooboolab/dooboo-native
 # Expo React Native Typescript Starter
 > Specification
 * typescript
